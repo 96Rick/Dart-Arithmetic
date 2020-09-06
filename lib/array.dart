@@ -122,3 +122,49 @@ class ContinuousArray {
     }
   }
 }
+
+
+
+
+void main() {
+  /**
+ *  给一个数组，定义X为某个区间的最小值乘上这个区间内所有元素的和，求最大的X。如数组为3 1 6 4 5，则最大的X=4*（6+4+5）=60
+ *  解题总个数 2
+ * 
+ */
+
+  var findArray = FindMaxTInArray([3,1,6,4,5]);
+  findArray.findArray();
+}
+class FindMaxTInArray {
+  List _array;
+  
+  FindMaxTInArray(List array) {
+    _array = array;
+  }
+
+/**
+ * 方法1： 时间复杂度 O(n2) 
+ * 
+ */
+  void findArray() {
+    if (_array.length == 1) {
+      print("X = " + (_array[0] * _array[0]).toString());
+      return;
+    }
+    var x = 0; 
+    for (var i = 0; i < _array.length; i++) {
+      var sum = 0;
+      var min = _array[i];
+      for (var j = i; j < _array.length; j++) {
+        if (_array[j] < min) {
+          min = _array[j];
+        }
+        sum += _array[j];
+        x = x < min * sum ? min * sum : x;
+      }
+    }
+    print("X = " + x.toString());
+  }
+  
+}

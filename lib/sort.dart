@@ -1,5 +1,11 @@
 // Time: O(n2)
 // Spave: O(n2)
+void main() {
+  // 选择排序SelectSort
+  var sortDemo = SelectSort([3, 4, 2, 1, 5]);
+  print(sortDemo.startSort());
+}
+
 class SelectSort {
   List _array;
   SelectSort(List array) {
