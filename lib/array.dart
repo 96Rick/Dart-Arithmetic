@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'stack.dart';
+
 class DiscontinuousArray {
   List _array;
   int _itemCont = 0;
@@ -123,9 +127,6 @@ class ContinuousArray {
   }
 }
 
-
-
-
 void main() {
   /**
  *  给一个数组，定义X为某个区间的最小值乘上这个区间内所有元素的和，求最大的X。如数组为3 1 6 4 5，则最大的X=4*（6+4+5）=60
@@ -133,12 +134,19 @@ void main() {
  * 
  */
 
-  var findArray = FindMaxTInArray([3,1,6,4,5]);
-  findArray.findArray();
+  FindMiddleInOverTurnArray findElement =
+      FindMiddleInOverTurnArray([3, 4, 5, 6, 1, 2]);
+  print(findElement.findMinddle());
+
+  // var findArray = FindMaxTInArray([3, 1, 6, 4, 5]);
+  // findArray.findArray();
 }
+
 class FindMaxTInArray {
   List _array;
-  
+  Stack<int> s;
+  int sum;
+
   FindMaxTInArray(List array) {
     _array = array;
   }
@@ -152,19 +160,61 @@ class FindMaxTInArray {
       print("X = " + (_array[0] * _array[0]).toString());
       return;
     }
-    var x = 0; 
+    var maxSum = 0;
     for (var i = 0; i < _array.length; i++) {
       var sum = 0;
       var min = _array[i];
       for (var j = i; j < _array.length; j++) {
-        if (_array[j] < min) {
-          min = _array[j];
-        }
+        if (_array[j] < min) min = _array[j];
         sum += _array[j];
-        x = x < min * sum ? min * sum : x;
+        maxSum = maxSum < min * sum ? min * sum : maxSum;
       }
     }
-    print("X = " + x.toString());
+    print("X = " + maxSum.toString());
   }
-  
+
+  /**
+   * 方法2
+   */
+  void stackFindArray() {}
+}
+
+class FindMiddleInOverTurnArray {
+  /**
+   *  345 123
+   *  sumcount = 7
+   *  count1 = 4
+   *  count2 = 3
+   *  sumcount / 2 = 3.5
+   * 
+   */
+
+  int _point;
+  int get _sumCount => _array.length;
+  List _array;
+  FindMiddleInOverTurnArray(List<int> array) : _array = array;
+  dynamic findMinddle() {
+    for (var i = 1; i < _array.length; i++) {
+      if (_array[i - 1] > _array[i]) {
+        _point = i;
+        break;
+      }
+    }
+    if (_sumCount / 2 > _point) {
+      if (_sumCount % 2 == 0)
+        return (_array[_point - 2 + _sumCount ~/ 2] +
+                _array[_point - 1 + _sumCount ~/ 2]) /
+            2;
+      else
+        return _array[_point + _sumCount ~/ 2];
+    } else if (_sumCount / 2 < _point) {
+      if (_sumCount % 2 == 0)
+        return (_array[_point - 1 - _sumCount ~/ 2] +
+                _array[_point - _sumCount ~/ 2]) /
+            2;
+      else
+        return _array[_point - 1 - _sumCount ~/ 2];
+    } else
+      return (_array[0] + _array[_sumCount - 1]) / 2;
+  }
 }
