@@ -16,7 +16,7 @@ void main() {
   // array.output();
 
   // ignore: omit_local_variable_types
-  MyLinkedList link = MyLinkedList(0);
+  MyLinkedList link = MyLinkedList();
   link.insert(0, 0);
   link.insert(1, 1);
   link.insert(2, 2);

@@ -1,3 +1,18 @@
+main() {
+  Stack aStack = Stack(10);
+  // aStack.pop();
+  aStack.push(1);
+  aStack.push("e");
+  aStack.push("lalala");
+  aStack.push(true);
+  aStack.push(1);
+  print(aStack.pop());
+  print(aStack.pop());
+  aStack.push(2);
+  print(aStack.pop());
+  aStack.toString();
+}
+
 class Stack<E> {
   List<E> _stack;
   int _capactiy;
@@ -11,9 +26,16 @@ class Stack<E> {
   bool get isFull => _top == _capactiy - 1;
   int get size => _top + 1;
 
+  @override
+  String toString() {
+    print(_stack.toString());
+  }
+
   E pop() {
     if (isEmpty) throw StackEmptyExcption();
-    return _stack[_top--];
+    var res = _stack[_top];
+    _stack[_top--] = null;
+    return res;
   }
 
   void push(E e) {
